@@ -1,0 +1,267 @@
+---
+title: "The Capstone project"
+author: "foma Ovolevor"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute: 
+  warning: false
+editor: visual
+bibliography: references.bib
+date: 2025-12-09
+---
+
+# INTRODUCTION
+
+*The goal of the analysis is to :*
+
+-   *Compute the Total and Average value in the row where it is missing*
+
+-   *Rename the columns with the appropriate month and yea*r
+
+**Import/Load libraries**
+
+```{r}
+library(tidyverse)
+library(skimr)
+library(readxl)
+library(gtExtras)
+library(here)
+```
+
+**import data/read data**
+
+```{r}
+faac_lga <- read_excel(here("data/raw/FAAC DATA - Data Community.xlsx"))
+```
+
+**Glimpse and Skim to Explore Data**
+
+```{r}
+faac_lga |> 
+  glimpse() |> 
+  skim()
+```
+
+# METHOD
+
+```{r}
+correct_year <-  faac_lga %>%
+  rename(
+    Jan_2007 = `39083`,
+    Feb_2007 = `39114`,
+    Mar_2007 = `39142`,
+    Apr_2007 = `39173`,
+    May_2007 = `39203`,
+    Jun_2007 = `39234`,
+    Jul_2007 = `39264`,
+    Aug_2007 = `39295`,
+    Sep_2007 = `39326`,
+    Oct_2007 = `39356`,
+    Nov_2007 = `39387`,
+    Dec_2007 = `39417`,
+    Jan_2008 = `39448`,
+    Feb_2008 = `39479`,
+    Mar_2008 = `39508`,
+    Apr_2008 = `39539`,
+    May_2008 = `39569`,
+    Jun_2008 = `39600`,
+    Jul_2008 = `39630`,
+    Aug_2008 = `39661`,
+    Sep_2008 = `39692`,
+    Oct_2008 = `39722`,
+    Nov_2008 = `39753`,
+    Dec_2008 = `39783`,
+    Jan_2009 = `39814`,
+    Feb_2009 = `39845`,
+    Mar_2009 = `39873`,
+    Apr_2009 = `39904`,
+    May_2009 = `39934`,
+    Jun_2009 = `39965`,
+    Jul_2009 = `39995`,
+    Aug_2009 = `40026`,
+    Sep_2009 = `40057`,
+    Oct_2009 = `40087`,
+    Nov_2009 = `40118`,
+    Dec_2009 = `40148`,
+    Jan_2010 = `40179`,
+    Feb_2010 = `40210`,
+    Mar_2010 = `40238`,
+    Apr_2010 = `40269`,
+    May_2010 = `40299`,
+    Jun_2010 = `40330`,
+    Jul_2010 = `40360`,
+    Aug_2010 = `40391`,
+    Sep_2010 = `40422`,
+    Oct_2010 = `40452`,
+    Nov_2010 = `40483`,
+    Dec_2010 = `40513`,
+    Jan_2011 = `40544`,
+    Feb_2011 = `40575`,
+    Mar_2011 = `40603`,
+    Apr_2011 = `40634`,
+    May_2011 = `40664`,
+    Jun_2011 = `40695`,
+    Jul_2011 = `40725`,
+    Aug_2011 = `40756`,
+    Sep_2011 = `40787`,
+    Oct_2011 = `40817`,
+    Nov_2011 = `40848`,
+    Dec_2011 = `40878`,
+    Jan_2012 = `40909`,
+    Feb_2012 = `40940`,
+    Mar_2012 = `40969`,
+    Apr_2012 = `41000`,
+    May_2012 = `41030`,
+    Jun_2012 = `41061`,
+    Jul_2012 = `41091`,
+    Aug_2012 = `41122` ,
+    Sep_2012 = `41153`,
+    Oct_2012 = `41183`,
+    Nov_2012 = `41214`,
+    Dec_2012= `41244`,
+    Jan_2013 = `41275`,
+    Feb_2013 = `41306`,
+    Mar_2013 = `41334`,
+    Apr_2013 = `41365`,
+    May_2013 = `41395`,
+    Jun_2013 = `41426`,
+    Jul_2013 = `41456`,
+    Aug_2013 = `41487` ,
+    Sep_2013 = `41518`,
+    Oct_2013 = `41548`,
+    Nov_2013 = `41579` ,
+    Dec_2013 = `41609`,
+    Jan_2014 = `41640` ,
+    Feb_2014 = `41671`,
+    Mar_2014 = `41699`,
+    Apr_2014 = `41730`,
+    May_2014 = `41760`,
+    Jun_2014 = `41791`,
+    Jul_2014 = `41821`,
+    Aug_2014 = `41852` ,
+    Sep_2014 = `41883`,
+    Oct_2014 = `41913`,
+    Nov_2014 = `41944` ,
+    Dec_2014 = `41974`,
+    Jan_2015 = `42005` ,
+    Feb_2015 = `42036`,
+    Mar_2015 = `42064` ,
+    Apr_2015 = `42095`,
+    May_2015 = `42125`,
+    Jun_2015 = `42156`,
+    Jul_2015 = `42186`,
+    Aug_2015 = `42217` ,
+    Sep_2015 = `42248`,
+    Oct_2015 = `42278`,
+    Nov_2015 = `42309` ,
+    Dec_2015 = `42339`,
+    Jan_2016 = `42370` ,
+    Feb_2016 = `42401`,
+    Mar_2016 = `42430` ,
+    Apr_2016 = `42461`,
+    May_2016 = `42491`,
+    Jun_2016 = `42522`,
+    Jul_2016 = `42552`,
+    Aug_2016 = `42583`,
+    Sep_2016 = `42614` ,
+    Oct_2016 = `42644` ,
+    Nov_2016 = `42675`,
+    Dec_2016  = `42705` ,
+    Jan_2017= `42736`,
+    Feb_2017= `42767` ,
+    Mar_2017 = `42795`,
+    Apr_2017  = `42826` ,
+    May_2017 = `42856`,
+    Jun_2017 = `42887`,
+    Jul_2017 = `42917`,
+    Aug_2017 = `42948` ,
+    Sep_2017 = `42979` ,
+    Oct_2017 = `43009` ,
+    Nov_2017 =  `43040`,
+    Dec_2017 = `43070`  ,
+    Jan_2018 = `43101`,
+    Feb_2018 = `43132` ,
+    Mar_2018 = `43160`,
+    Apr_2018  = `43191`  ,
+    May_2018 = `43221`,
+    Jun_2018 = `43252`,
+    Jul_2018 = `43282`,
+    Aug_2018 = `43313` ,
+    Sep_2018 = `43344`,
+    Oct_2018 = `43374` ,
+    Nov_2018 =  `43405`,
+    Dec_2018 = `43435`,
+  )
+
+```
+
+```{r}
+exclude_totalaverage <- correct_year[1:774,]
+
+state_lgc <- exclude_totalaverage %>%
+  select( ,STATE:LGC)
+
+year_2017 <- exclude_totalaverage %>%
+           select(,Jan_2017:Dec_2017)
+```
+
+```{r}
+the_desiretable <- cbind(state_lgc,year_2017) %>%
+  gt()
+
+
+```
+
+# RESULT
+
+View \@tbl-faac for faac data on Nigeria
+
+```{r}
+
+#| label: tbl-faac
+#| tbl-cap: "faac allocation.
+#| 
+total_average <- the_desiretable %>%
+  tab_header(title = "FAAC Allocation to States and Local Government Councils in Nigeria") |> tab_spanner(columns = everything(), label = "Month & Year") |> 
+  grand_summary_rows(
+    columns = matches("_(2017)$"),  # Matches all columns ending with _2017
+    fns = list(
+      TOTAL ~ sum(.),
+      AVERAGE ~ mean(.)
+    ),
+    fmt = ~ fmt_number(., use_seps = FALSE)
+  )
+  
+total_average
+```
+
+```{r}
+exclude_totalaverage %>%
+  filter(STATE == "DELTA" | STATE == "LAGOS") %>%
+  ggplot(aes(STATE, fill = LGC)) +
+  geom_bar() #poor viz
+
+```
+
+check \@fig-faac, we see that ...
+
+```{r}
+#| fig-cap: for Delta and it's lgc
+#| label: fig-Delta in 2017
+
+exclude_totalaverage %>%
+  filter(STATE == "DELTA") %>%
+  ggplot(aes( STATE, Jan_2017, colour = LGC)) +
+  geom_point() +
+  geom_line() #poor viz
+```
+
+# CONCLUSION
+
+The visual needs adjustment while more explanation will be provided for the code chunks
+
+# REFERENCE
+
+The reference bib file contain all project reference
