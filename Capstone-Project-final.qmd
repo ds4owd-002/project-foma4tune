@@ -406,7 +406,13 @@ look @fig-top4states
 Top_fourstates %>%
   ggplot(aes(STATE, total, colour =  STATE, shape = STATE )) +
   geom_point(size = 5, alpha = 0.7) +
-  scale_color_colorblind()
+  scale_color_colorblind() +
+  labs(
+    title = 'Top 4 States in Nigeria',
+    subtitle = 'The plot of the  4 states with the highest allocation',
+    x = 'STATE',
+    y = 'total'
+  )
 ```
 
 See @fig-top4lgc
@@ -423,7 +429,13 @@ Top_fourlgc %>%
   )) |> 
   ggplot(aes(lgc_abbreviate, total, colour = lgc_abbreviate, shape = lgc_abbreviate)) +
   geom_point(size = 5, alpha = 0.7) +
-  scale_color_colorblind()
+  scale_color_colorblind() +
+  labs(
+    title = 'Top 4 LGC in Nigeria',
+    subtitle = 'The plot of the  4 LGC with the highest allocation',
+    x = 'LGC',
+    y = 'total'
+  )
 ```
 
 # CONCLUSION

@@ -222,7 +222,7 @@ View \@tbl-faac for faac data on Nigeria
 
 #| label: tbl-faac
 #| tbl-cap: "faac allocation.
-#| 
+ 
 total_average <- the_desiretable %>%
   tab_header(title = "FAAC Allocation to States and Local Government Councils in Nigeria") |> tab_spanner(columns = everything(), label = "Month & Year") |> 
   grand_summary_rows(
@@ -264,4 +264,4 @@ The visual needs adjustment while more explanation will be provided for the code
 
 # REFERENCE
 
-The reference bib file contain all project reference
+The reference bib file contain all project reference[@gtExtras] [@tidyverse] [@skimr]
