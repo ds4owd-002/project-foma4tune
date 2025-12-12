@@ -1,0 +1,464 @@
+---
+title: "Capstone Project Submission"
+author: "foma Ovolevor"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute: 
+  warning: false
+editor: visual
+bibliography: references.bib
+date: 2025-12-10
+---
+
+# INTRODUCTION
+
+1.  The faac dataset contains data about allocation to state and local council for the period of January 2017 to May 2024
+
+2.  The capstone Project objective is to wrangle the dataset to achieve the following :
+
+-   *Rename the columns with the appropriate month and yea*r from 2007 to 2018
+
+-   *Compute the Total and Average allocation to states*
+
+**Import/Load libraries**
+
+```{r}
+library(tidyverse)
+library(skimr)
+library(readxl)
+library(ggthemes)
+library(here)
+```
+
+**import data/read data**
+
+```{r}
+faac_lga <- read_excel(here("data/raw/FAAC DATA - Data Community.xlsx"))
+```
+
+**Glimpse and Skim to Explore Data**
+
+```{r}
+#The skim gives an overview statistics of the dataset
+faac_lga |> 
+  glimpse() |> 
+  skim()
+```
+
+# METHOD
+
+Faac data-set is a publicly available data-set published for competition purpose by the Revenue Mobilization Allocation and Fiscal Commission(RMAFC) of Nigeria in 2024[.]{.smallcaps}
+
+The data-set is unlikely to be easily accessed/available since the competition was closed in 2024.
+
+# RESULT
+
+Rename columns with the correct month and year from January 2007 to December 2018
+
+```{r}
+#Rename columns with the correct month and year from January 2007 to December 2018
+correct_year <-  faac_lga %>%
+  rename(
+    Jan_2007 = `39083`,
+    Feb_2007 = `39114`,
+    Mar_2007 = `39142`,
+    Apr_2007 = `39173`,
+    May_2007 = `39203`,
+    Jun_2007 = `39234`,
+    Jul_2007 = `39264`,
+    Aug_2007 = `39295`,
+    Sep_2007 = `39326`,
+    Oct_2007 = `39356`,
+    Nov_2007 = `39387`,
+    Dec_2007 = `39417`,
+    Jan_2008 = `39448`,
+    Feb_2008 = `39479`,
+    Mar_2008 = `39508`,
+    Apr_2008 = `39539`,
+    May_2008 = `39569`,
+    Jun_2008 = `39600`,
+    Jul_2008 = `39630`,
+    Aug_2008 = `39661`,
+    Sep_2008 = `39692`,
+    Oct_2008 = `39722`,
+    Nov_2008 = `39753`,
+    Dec_2008 = `39783`,
+    Jan_2009 = `39814`,
+    Feb_2009 = `39845`,
+    Mar_2009 = `39873`,
+    Apr_2009 = `39904`,
+    May_2009 = `39934`,
+    Jun_2009 = `39965`,
+    Jul_2009 = `39995`,
+    Aug_2009 = `40026`,
+    Sep_2009 = `40057`,
+    Oct_2009 = `40087`,
+    Nov_2009 = `40118`,
+    Dec_2009 = `40148`,
+    Jan_2010 = `40179`,
+    Feb_2010 = `40210`,
+    Mar_2010 = `40238`,
+    Apr_2010 = `40269`,
+    May_2010 = `40299`,
+    Jun_2010 = `40330`,
+    Jul_2010 = `40360`,
+    Aug_2010 = `40391`,
+    Sep_2010 = `40422`,
+    Oct_2010 = `40452`,
+    Nov_2010 = `40483`,
+    Dec_2010 = `40513`,
+    Jan_2011 = `40544`,
+    Feb_2011 = `40575`,
+    Mar_2011 = `40603`,
+    Apr_2011 = `40634`,
+    May_2011 = `40664`,
+    Jun_2011 = `40695`,
+    Jul_2011 = `40725`,
+    Aug_2011 = `40756`,
+    Sep_2011 = `40787`,
+    Oct_2011 = `40817`,
+    Nov_2011 = `40848`,
+    Dec_2011 = `40878`,
+    Jan_2012 = `40909`,
+    Feb_2012 = `40940`,
+    Mar_2012 = `40969`,
+    Apr_2012 = `41000`,
+    May_2012 = `41030`,
+    Jun_2012 = `41061`,
+    Jul_2012 = `41091`,
+    Aug_2012 = `41122` ,
+    Sep_2012 = `41153`,
+    Oct_2012 = `41183`,
+    Nov_2012 = `41214`,
+    Dec_2012= `41244`,
+    Jan_2013 = `41275`,
+    Feb_2013 = `41306`,
+    Mar_2013 = `41334`,
+    Apr_2013 = `41365`,
+    May_2013 = `41395`,
+    Jun_2013 = `41426`,
+    Jul_2013 = `41456`,
+    Aug_2013 = `41487` ,
+    Sep_2013 = `41518`,
+    Oct_2013 = `41548`,
+    Nov_2013 = `41579` ,
+    Dec_2013 = `41609`,
+    Jan_2014 = `41640` ,
+    Feb_2014 = `41671`,
+    Mar_2014 = `41699`,
+    Apr_2014 = `41730`,
+    May_2014 = `41760`,
+    Jun_2014 = `41791`,
+    Jul_2014 = `41821`,
+    Aug_2014 = `41852` ,
+    Sep_2014 = `41883`,
+    Oct_2014 = `41913`,
+    Nov_2014 = `41944` ,
+    Dec_2014 = `41974`,
+    Jan_2015 = `42005` ,
+    Feb_2015 = `42036`,
+    Mar_2015 = `42064` ,
+    Apr_2015 = `42095`,
+    May_2015 = `42125`,
+    Jun_2015 = `42156`,
+    Jul_2015 = `42186`,
+    Aug_2015 = `42217` ,
+    Sep_2015 = `42248`,
+    Oct_2015 = `42278`,
+    Nov_2015 = `42309` ,
+    Dec_2015 = `42339`,
+    Jan_2016 = `42370` ,
+    Feb_2016 = `42401`,
+    Mar_2016 = `42430` ,
+    Apr_2016 = `42461`,
+    May_2016 = `42491`,
+    Jun_2016 = `42522`,
+    Jul_2016 = `42552`,
+    Aug_2016 = `42583`,
+    Sep_2016 = `42614` ,
+    Oct_2016 = `42644` ,
+    Nov_2016 = `42675`,
+    Dec_2016  = `42705` ,
+    Jan_2017= `42736`,
+    Feb_2017= `42767` ,
+    Mar_2017 = `42795`,
+    Apr_2017  = `42826` ,
+    May_2017 = `42856`,
+    Jun_2017 = `42887`,
+    Jul_2017 = `42917`,
+    Aug_2017 = `42948` ,
+    Sep_2017 = `42979` ,
+    Oct_2017 = `43009` ,
+    Nov_2017 =  `43040`,
+    Dec_2017 = `43070`  ,
+    Jan_2018 = `43101`,
+    Feb_2018 = `43132` ,
+    Mar_2018 = `43160`,
+    Apr_2018  = `43191`  ,
+    May_2018 = `43221`,
+    Jun_2018 = `43252`,
+    Jul_2018 = `43282`,
+    Aug_2018 = `43313` ,
+    Sep_2018 = `43344`,
+    Oct_2018 = `43374` ,
+    Nov_2018 =  `43405`,
+    Dec_2018 = `43435`,
+  )
+
+```
+
+Exclude the rows with Total and Average
+
+```{r}
+#Extract the rows of interest
+exclude_totalaverage <- correct_year[1:774,]
+```
+
+Make a pivot longer data-set to enhance data analysis
+
+View @tbl-pivotlonger
+
+```{r}
+#| label: tbl-pivotlonger
+#| tbl-cap: "Pivot long faac data"
+
+faac_data_long <- exclude_totalaverage |>
+  select(STATE, LGC, !starts_with("4")) |> 
+  pivot_longer(
+    cols = -c(STATE, LGC),
+    names_to = "date",
+    values_to = "amount"
+  ) |> 
+  separate(date, into = c("Month", "Year"), sep = "_")
+```
+
+Get the yearly/annual total and average allocation to states
+
+View @tbl-stateyearlysummarry
+
+```{r}
+#| label: tbl-stateyearlysummarry
+#| tbl-cap: 'State yearly summary'
+
+summary_state_year <- faac_data_long |> 
+  group_by(STATE, Year) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Get the yearly/annual total and average allocation to Local Councils
+
+View @tbl-lgcannualsummary
+
+```{r}
+#| label: tbl-lgcannualsummary
+#| tbl-cap: 'lgc annual summary'
+
+summary_lgc_year <- faac_data_long |> 
+  group_by(LGC, Year) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Get the monthly total and average allocation to states
+
+View @tbl-monthlystatesummary
+
+```{r}
+#| label: tbl-monthlystatesummary
+#| tbl-cap: 'states monthly summary'
+
+summary_state_month <- faac_data_long |> 
+  group_by(STATE, Month) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Get the monthly total and average allocation to local councils
+
+View @tbl-lgcmonthlysummary
+
+```{r}
+#| label: tbl-lgcmonthlysummary
+#| tbl-cap: 'lgc monthly summary'
+
+
+summary_lgc_month <- faac_data_long |> 
+  group_by(LGC, Month) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Yearly summary
+
+View @tbl-Yearlysummary
+
+```{r}
+#| label: tbl-Yearlysummary
+#| tbl-cap: 'Yearly summary'
+
+summary_year <- faac_data_long |> 
+  group_by(Year) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Monthly summary
+
+View @tbl-Monthlysummary
+
+```{r}
+#| label: tbl-Monthlysummary
+#| tbl-cap: 'Monthly summary'
+
+
+
+summary_month <- faac_data_long |> 
+  group_by(Month) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  )
+```
+
+Top states allocation
+
+View @tbl-topstates
+
+```{r}
+#| label: tbl-topstates
+#| tbl-cap: 'Top states'
+
+
+summary_state <- faac_data_long |> 
+  group_by(STATE) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  ) |> 
+  arrange(desc(avg))
+```
+
+Top 4 states
+
+View @tbl-top4states
+
+```{r}
+#| label: tbl-top4states
+#| tbl-cap: 'Top 4 states'
+
+Top_fourstates <- summary_state |> head(4)
+```
+
+Top LGC allocation
+
+View @tbl-toplgc
+
+```{r}
+#| label: tbl-toplgc
+#| tbl-cap: 'Top lgc'
+
+
+summary_state <- faac_data_long |> 
+  group_by(LGC) |>
+  summarise(
+    total = sum(amount, na.rm = TRUE),
+    avg = mean(amount, na.rm = TRUE)
+  ) |> 
+  arrange(desc(avg))
+```
+
+Tops 4 LGC
+
+View @tbl-top4lgc
+
+```{r}
+#| label: tbl-top4lgc
+#| tbl-cap: 'Top 4 lgc'
+
+Top_fourlgc <- summary_state |> head(4)
+
+```
+
+look @fig-top4states
+
+```{r}
+#| fig-cap: "Top 4 States"
+#| label: fig-top4states
+
+Top_fourstates %>%
+  ggplot(aes(STATE, total, colour =  STATE, shape = STATE )) +
+  geom_point(size = 5, alpha = 0.7) +
+  scale_color_colorblind() +
+  labs(
+    title = 'Top 4 States in Nigeria',
+    subtitle = 'The plot of the  4 states with the highest allocation',
+    x = 'STATE',
+    y = 'total'
+  )
+```
+
+See @fig-top4lgc
+
+```{r}
+#| fig-cap: "Top 4 lgc"
+#| label: fig-top4lgc
+
+Top_fourlgc %>%
+  mutate(lgc_abbreviate = case_when(
+    LGC == "ABUJA MUNICIPAL" ~ "ABUJA_M",
+    LGC == "AJEROMI/IFELODU" ~ "AJEROMI_I",  
+    .default = LGC
+  )) |> 
+  ggplot(aes(lgc_abbreviate, total, colour = lgc_abbreviate, shape = lgc_abbreviate)) +
+  geom_point(size = 5, alpha = 0.7) +
+  scale_color_colorblind() +
+  labs(
+    title = 'Top 4 LGC in Nigeria',
+    subtitle = 'The plot of the  4 LGC with the highest allocation',
+    x = 'LGC',
+    y = 'total'
+  )
+```
+
+# CONCLUSION
+
+The findings shows the top four states and local government councils getting the most allocation from the Revenue Mobilization Allocation and Fiscal Commission(RMAFC) of Nigeria.
+
+**Top 4 states :**
+
+1.  Lagos
+
+2.  Kaduna
+
+3.  Bauchi
+
+4.  Abuja
+
+**Top 4 Local Government Councils :**
+
+1.  Alimosho
+
+2.  Abuja Municipal
+
+3.  Ajeromi/Ifelodun
+
+4.  Kosofe
+
+I will like to appreciate Clavijo Daza Adriana Marcela for assistance in wrangling the data .
+
+# REFERENCE
+
+The reference bib file contain all project reference[@gtExtras] [@tidyverse] [@skimr]
