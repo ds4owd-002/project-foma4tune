@@ -350,7 +350,7 @@ summary_state <- faac_data_long |>
     total = sum(amount, na.rm = TRUE),
     avg = mean(amount, na.rm = TRUE)
   ) |> 
-  arrange(desc(avg))
+  arrange(desc(total))
 
 ```
 
@@ -363,6 +363,8 @@ View @tbl-top4states
 #| tbl-cap: 'Top 4 states'
 
 Top_fourstates <- summary_state |> head(4)
+
+Top_fourstates
 ```
 
 Top LGC allocation
@@ -381,7 +383,7 @@ summary_state <- faac_data_long |>
     total = sum(amount, na.rm = TRUE),
     avg = mean(amount, na.rm = TRUE)
   ) |> 
-  arrange(desc(avg))
+  arrange(desc(total))
 ```
 
 Tops 4 LGC
@@ -394,7 +396,7 @@ View @tbl-top4lgc
 
 Top_fourlgc <- summary_state |> head(4)
 
-
+Top_fourlgc
 ```
 
 look @fig-top4states
@@ -444,23 +446,23 @@ The findings shows the top four states and local government councils getting the
 
 **Top 4 states :**
 
-1.  Lagos
+1.  KANO
 
-2.  Kaduna
+2.  LAGOS
 
-3.  Bauchi
+3.  KATSINA
 
-4.  Abuja
+4.  OYO
 
 **Top 4 Local Government Councils :**
 
-1.  Alimosho
+1.  ALIMOSHO
 
-2.  Abuja Municipal
+2.  ABUJA MUNICIPAL
 
-3.  Ajeromi/Ifelodun
+3.  AJEROMI/IFELODUN
 
-4.  Kosofe
+4.  KOSOFE
 
 I will like to appreciate Clavijo Daza Adriana Marcela for assistance in wrangling the data .
 
